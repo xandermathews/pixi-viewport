@@ -10,6 +10,7 @@ module.exports = class Wheel extends Plugin
      * @param {number} [options.smooth] smooth the zooming by providing the number of frames to zoom between wheel spins
      * @param {boolean} [options.interrupt=true] stop smoothing with any user input on the viewport
      * @param {boolean} [options.reverse] reverse the direction of the scroll
+     * @param {canvas} [options.renderCanvas] extract the body->canvas offset to allow for canvas not being top:0 left:0
      * @param {PIXI.Point} [options.center] place this point at center during zoom instead of current mouse position
      *
      * @event wheel({wheel: {dx, dy, dz}, event, viewport})
@@ -22,6 +23,7 @@ module.exports = class Wheel extends Plugin
         this.center = options.center
         this.reverse = options.reverse
         this.smooth = options.smooth
+		this.renderCanvas = options.renderCanvas
         this.interrupt = typeof options.interrupt === 'undefined' ? true : options.interrupt
     }
 
@@ -78,6 +80,13 @@ module.exports = class Wheel extends Plugin
         }
 
         let point = this.parent.getPointerPosition(e)
+		if (this.renderCanvas)
+		{
+			var offset = this.renderCanvas.getBoundingClientRect();
+			point.x -= offset.x;
+			point.y -= offset.y;
+		}
+
         let sign
         if (this.reverse)
         {
