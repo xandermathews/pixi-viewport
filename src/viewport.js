@@ -457,6 +457,7 @@ class Viewport extends PIXI.Container
 
         if (this.clickedAvailable && this.countDownPointers() === 0)
         {
+			// console.error("clicked");
             this.emit('clicked', { screen: this.last, world: this.toWorld(this.last), viewport: this })
             this.clickedAvailable = false
         }

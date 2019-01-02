@@ -50,6 +50,7 @@ module.exports = class Bounce extends Plugin
         this.parseUnderflow(options.underflow || 'center')
         this.last = {}
         this.reset()
+		//console.log("bouncer", this);
     }
 
     parseUnderflow(clamp)
@@ -74,16 +75,19 @@ module.exports = class Bounce extends Plugin
 
     down()
     {
+		// console.error("who calls down?");
         this.toX = this.toY = null
     }
 
     up()
     {
+		// console.error("who calls up?", this.isActive(), this.paused);
         this.bounce()
     }
 
     update(elapsed)
     {
+		// console.error("who calls update?", elapsed);
         if (this.paused)
         {
             return
@@ -189,6 +193,7 @@ module.exports = class Bounce extends Plugin
         {
             oob = oob || this.parent.OOB()
             const point = oob.cornerPoint
+			// console.log("going to bounce", {oob, point, decelerate, config: this});
             if (!this.toX && !decelerate.x)
             {
                 let x = null

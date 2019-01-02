@@ -27,6 +27,7 @@ module.exports = class Drag extends Plugin
         this.xDirection = !options.direction || options.direction === 'all' || options.direction === 'x'
         this.yDirection = !options.direction || options.direction === 'all' || options.direction === 'y'
         this.parseUnderflow(options.underflow || 'center')
+		//console.log(this);
     }
 
     parseUnderflow(clamp)
